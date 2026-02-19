@@ -1,33 +1,74 @@
-# SwallowWell — Dysphagia & Speech Therapy
+# SwallowWell — TanStack Dysphagia Self-Help Web App
 
-A website for speech therapy focused on **Indian adult clients with dysphagia** (swallowing difficulty). Built with culturally-informed content, Indian diet modifications, and bilingual hints.
+SwallowWell is a functional, route-based self-help experience for Indian adults and families managing dysphagia.
+It helps users get most day-to-day support **inside the website first**, and only escalate to a counselor when risk or trends indicate they should.
 
-## Features
+## Tech Stack
 
-- **About Dysphagia** — Symptoms and why to seek help
-- **Our Approach** — Assessment, personalised plans, family involvement
-- **Indian Diet Guide** — Safe foods (dal, curd, khichdi, etc.) and foods to avoid (dry chapati, nuts, etc.)
-- **Swallowing Exercises** — Evidence-based exercises (with SLP supervision disclaimer)
-- **Contact Form** — For booking consultations
+- React + TypeScript + Vite
+- TanStack Router
+- TanStack Query
+- TanStack Form
+- TanStack Table
+- Tailwind CSS + Framer Motion
+- Recharts
 
-## Run Locally
+## Core User Flows
 
-Open `index.html` in a browser, or use a simple server:
+### 1) Quick Risk Check (`/risk-check`)
+- Guided symptom screening with weighted scoring
+- Red-flag override for high-risk conditions
+- Low / Moderate / High recommendation output
+- Auto-prompts counselor escalation when needed
+
+### 2) Daily Toolkit (`/toolkit`)
+- Texture-level based Indian meal guidance
+- Exercise guidance by focus area (with medical caution notices)
+- Daily logger for hydration, tolerated meals, cough/choking episodes, energy, notes
+
+### 3) Progress Dashboard (`/dashboard`)
+- 7-log trend chart (hydration and cough episodes)
+- Summary KPI cards
+- TanStack Table log history
+
+### 4) Knowledge Base (`/knowledge-base`)
+- Search + category filtering for practical FAQs
+- Designed so users can self-serve common questions quickly
+
+### 5) Counselor Escalation (`/counselor`)
+- Escalation highlighting based on risk and symptom trend
+- Auto-generated handoff summary
+- Mailto shortcut for faster communication
+
+## Local Development
 
 ```bash
-npx serve .
-# or
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then visit `http://localhost:8000` (or the port shown).
+Build and preview production bundle:
 
-## Customisation
+```bash
+npm run build
+npm run preview
+```
 
-1. **Phone number** — Update the placeholder in the contact section of `index.html`
-2. **Form submission** — Connect the contact form to your backend or email service (e.g. Formspree, Netlify Forms)
-3. **Languages** — Add Hindi or regional language pages if desired
+Run automated end-to-end validation:
 
-## Note
+```bash
+npm run test:e2e
+```
 
-This site provides general information only. All diet and exercise advice should be guided by a qualified speech-language pathologist (SLP) after individual assessment.
+This script boots preview mode, executes browser checks across all core routes, validates data flow (risk check → toolkit log → dashboard → counselor summary), and fails on any broken flow.
+
+## Data & Privacy
+
+- App data is stored in browser `localStorage` only.
+- No backend persistence is configured by default.
+- You can integrate APIs later using the existing TanStack Query layer.
+
+## Safety Disclaimer
+
+This product is for educational support only and does **not** provide diagnosis.
+All diet and exercise decisions should be confirmed by a qualified speech-language pathologist (SLP) or physician, especially for high-risk signs (frequent choking, recurrent chest infection, rapid decline).
