@@ -1,12 +1,11 @@
 import { QueryClient } from "@tanstack/react-query";
-import { createRootRouteWithContext, createRoute, createRouter } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  createRoute,
+  createRouter,
+  lazyRouteComponent
+} from "@tanstack/react-router";
 import { RootLayout } from "@/routes/__root";
-import { CounselorPage } from "@/routes/counselor";
-import { DashboardPage } from "@/routes/dashboard";
-import { HomePage } from "@/routes/index";
-import { KnowledgeBasePage } from "@/routes/knowledge-base";
-import { RiskCheckPage } from "@/routes/risk-check";
-import { ToolkitPage } from "@/routes/toolkit";
 
 export interface RouterContext {
   queryClient: QueryClient;
@@ -19,37 +18,37 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: HomePage
+  component: lazyRouteComponent(() => import("@/routes/index"), "HomePage")
 });
 
 const riskCheckRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/risk-check",
-  component: RiskCheckPage
+  component: lazyRouteComponent(() => import("@/routes/risk-check"), "RiskCheckPage")
 });
 
 const toolkitRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/toolkit",
-  component: ToolkitPage
+  component: lazyRouteComponent(() => import("@/routes/toolkit"), "ToolkitPage")
 });
 
 const dashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/dashboard",
-  component: DashboardPage
+  component: lazyRouteComponent(() => import("@/routes/dashboard"), "DashboardPage")
 });
 
 const knowledgeBaseRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/knowledge-base",
-  component: KnowledgeBasePage
+  component: lazyRouteComponent(() => import("@/routes/knowledge-base"), "KnowledgeBasePage")
 });
 
 const counselorRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/counselor",
-  component: CounselorPage
+  component: lazyRouteComponent(() => import("@/routes/counselor"), "CounselorPage")
 });
 
 const routeTree = rootRoute.addChildren([
