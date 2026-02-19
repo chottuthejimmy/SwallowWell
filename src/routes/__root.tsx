@@ -14,6 +14,12 @@ export function RootLayout() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900"
+      >
+        Skip to main content
+      </a>
       <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3 md:px-6">
           <Link to="/" className="text-xl font-black tracking-tight text-teal-700">
@@ -49,7 +55,7 @@ export function RootLayout() {
         </div>
       ) : null}
 
-      <main>
+      <main id="main-content">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 8 }}

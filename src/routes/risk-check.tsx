@@ -55,6 +55,7 @@ export function RiskCheckPage() {
                   <div className="mt-3 flex gap-3">
                     <button
                       type="button"
+                      aria-pressed={field.state.value}
                       className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
                         field.state.value
                           ? "bg-teal-600 text-white"
@@ -66,6 +67,7 @@ export function RiskCheckPage() {
                     </button>
                     <button
                       type="button"
+                      aria-pressed={!field.state.value}
                       className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
                         !field.state.value
                           ? "bg-slate-700 text-white"
