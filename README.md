@@ -54,6 +54,14 @@ npm run build
 npm run preview
 ```
 
+Run automated end-to-end validation:
+
+```bash
+npm run test:e2e
+```
+
+This script boots preview mode, executes browser checks across all core routes, validates data flow (risk check → toolkit log → dashboard → counselor summary), and fails on any broken flow.
+
 ## Data & Privacy
 
 - App data is stored in browser `localStorage` only.
