@@ -7,19 +7,26 @@ const EMPTY_DATA: AppData = {
   dailyLogs: []
 };
 
-function canUseStorage() {
+let storageSupportCache: boolean | undefined;
+
+export function isStorageAvailable() {
+  if (storageSupportCache !== undefined) return storageSupportCache;
+  if (typeof window === "undefined") return false;
+
   try {
     const testKey = "__swallowwell_storage_check";
     window.localStorage.setItem(testKey, "ok");
     window.localStorage.removeItem(testKey);
-    return true;
+    storageSupportCache = true;
+    return storageSupportCache;
   } catch {
-    return false;
+    storageSupportCache = false;
+    return storageSupportCache;
   }
 }
 
 export function readAppData(): AppData {
-  if (typeof window === "undefined" || !canUseStorage()) return EMPTY_DATA;
+  if (!isStorageAvailable()) return EMPTY_DATA;
 
   const raw = window.localStorage.getItem(STORAGE_KEY);
   if (!raw) return EMPTY_DATA;
@@ -36,7 +43,7 @@ export function readAppData(): AppData {
 }
 
 export function writeAppData(data: AppData) {
-  if (typeof window === "undefined" || !canUseStorage()) return false;
+  if (!isStorageAvailable()) return false;
 
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -47,6 +54,6 @@ export function writeAppData(data: AppData) {
 }
 
 export function clearAppData() {
-  if (typeof window === "undefined" || !canUseStorage()) return;
+  if (!isStorageAvailable()) return;
   window.localStorage.removeItem(STORAGE_KEY);
 }

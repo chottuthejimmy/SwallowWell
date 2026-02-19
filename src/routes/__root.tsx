@@ -1,9 +1,16 @@
+import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { navItems } from "@/data/content";
+import { isStorageAvailable } from "@/lib/storage";
 
 export function RootLayout() {
   const location = useLocation();
+  const [storageAvailable, setStorageAvailable] = useState(true);
+
+  useEffect(() => {
+    setStorageAvailable(isStorageAvailable());
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -33,6 +40,14 @@ export function RootLayout() {
           </nav>
         </div>
       </header>
+
+      {!storageAvailable ? (
+        <div className="border-b border-amber-200 bg-amber-50">
+          <div className="mx-auto max-w-6xl px-4 py-2 text-sm text-amber-900 md:px-6" role="status">
+            Local browser storage is unavailable. Risk history and daily logs cannot be saved on this device.
+          </div>
+        </div>
+      ) : null}
 
       <main>
         <motion.div

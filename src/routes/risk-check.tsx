@@ -3,6 +3,7 @@ import { useForm } from "@tanstack/react-form";
 import { Link } from "@tanstack/react-router";
 import { riskQuestions } from "@/data/content";
 import { SectionCard, PageShell, SeverityBadge } from "@/components/ui";
+import { getRiskAnnouncement } from "@/lib/accessibility";
 import type { RiskAssessmentInput, RiskAssessmentResult } from "@/lib/types";
 import { scoreRiskCheck } from "@/lib/scoring";
 import { useSaveRiskAssessment } from "@/lib/appData";
@@ -102,6 +103,7 @@ export function RiskCheckPage() {
       </SectionCard>
 
       <section aria-live="polite" className="mt-6">
+        {result ? <p className="sr-only">{getRiskAnnouncement(result)}</p> : null}
         {result ? (
           <SectionCard
             title="Your Risk Output"
